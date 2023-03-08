@@ -27,7 +27,9 @@ class App extends React.Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let myData = await axios.get(`https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.cityName}&format=json`)
+      let LocationIQToken = process.env.REACT_APP_LOCATIONIQ_API_KEY;
+
+      let myData = await axios.get(`https://us1.locationiq.com/v1/search?key=${LocationIQToken}&q=${this.state.cityName}&format=json`)
       this.setState({
         cityData: myData.data[0],
         latitude: this.state.cityData.lat,
@@ -63,7 +65,13 @@ class App extends React.Component {
         <Button type='submit'>Explore!</Button>
       </Form>
       <Card>
-        <Card.Img src={mapURL} alt="Selected City Map" style={this.state.isMapOpen ? {} : { display: 'none' }} ></Card.Img>
+        <Card.Img 
+        src={mapURL} 
+        alt="Selected City Map" 
+        style={this.state.isMapOpen 
+          ? {} 
+          : { display: 'none' }} >
+        </Card.Img>
         <Card.Body>
         <Card.Title>{`City: ${this.state.cityData.display_name}`}</Card.Title>
         <Card.Text>{`Lat. Coordinate: ${this.state.cityData.lat}`}</Card.Text>
