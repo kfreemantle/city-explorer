@@ -20,6 +20,7 @@ class App extends React.Component {
       isMapOpen: false,
       error: false,
       errorMessage: '',
+      weatherDataState: '',
     }
   }
 
@@ -29,13 +30,14 @@ class App extends React.Component {
     try {
       let LocationIQToken = process.env.REACT_APP_LOCATIONIQ_API_KEY;
 
+      // Axios action happens here
       let myData = await axios.get(`https://us1.locationiq.com/v1/search?key=${LocationIQToken}&q=${this.state.cityName}&format=json`)
       this.setState({
         cityData: myData.data[0],
         latitude: this.state.cityData.lat,
         longitude: this.state.cityData.lon,
         isMapOpen: true
-      })
+      }, this.handleWeather)
     } catch (error) {
       this.setState({
         error: true,
@@ -53,9 +55,20 @@ class App extends React.Component {
     })
   }
 
+  handleWeather = async () => {
+    let weatherURL = `http://localhost:3001/weather?searchQuery=${this.state.cityName}`
+    console.log(weatherURL);
+    let weatherData = await axios.get(weatherURL);
+    this.setState ({
+      weatherDataState: weatherData
+    })
+    console.log(weatherData);
+  }
+
 
   render() {
     let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=12`  // all of this has to come through as a template literal to properly target the API key
+    
     
     return (
       <>
@@ -64,7 +77,23 @@ class App extends React.Component {
         <Form.Control id="cityName" type="text" onChange={this.handleChange}></Form.Control>
         <Button type='submit'>Explore!</Button>
       </Form>
-      <Card>
+
+      {this.state.weatherDataState 
+      ? 
+      this.state.weatherDataState.data.map(eachDay => {
+      //  return <p>{eachDay.date} - {eachDay.description}</p>
+      return <Card>
+        <Card.Text>
+        {eachDay.date} - {eachDay.description}
+        </Card.Text>
+        
+      </Card>
+      }) 
+      
+      : 
+      <p></p>}
+
+      {/* <Card>
         <Card.Img 
         src={mapURL} 
         alt="Selected City Map" 
@@ -77,7 +106,8 @@ class App extends React.Component {
         <Card.Text>{`Lat. Coordinate: ${this.state.cityData.lat}`}</Card.Text>
         <Card.Text>{`Long. Coordinate: ${this.state.cityData.lon}`}</Card.Text>
         </Card.Body>
-      </Card>
+      </Card> */}
+
       </>
   
     );
