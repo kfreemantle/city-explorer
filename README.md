@@ -17,4 +17,5 @@
 - 6 MAR 2023: initial setup of React app framework, Netifly hosting, and connection with locationIQ API.
 
 ## Credit and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+
+- I have received so much help from Tammy Do in particular on this project.  I'm certain she's dumped at least 3 hours into me directly.
