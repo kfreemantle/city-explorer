@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-// import Card from 'react-bootstrap/Card';
+import Card from 'react-bootstrap/Card';  // want to use Card but we'll see how well I can do
 import Image from 'react-bootstrap/Image';
 import Weather from './Weather';
 import './App.css';
@@ -15,7 +15,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      cityData: { display_name: 'Choose Your City', lat: 'East/West Coordinates', lon: 'North/South Coordinates' },
+      cityData: [],
       cityName: '',
       latitude: '',
       longitude: '',
@@ -23,10 +23,13 @@ class App extends React.Component {
       error: false,
       errorMessage: '',
       weatherDataState: '',
+      weatherDataStateEmpty: true,
+      movieData: [],
     }
   }
 
 
+  // handle functions
   handleSubmit = async (e) => {
     e.preventDefault();
     try {
