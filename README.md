@@ -10,12 +10,20 @@
 <!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+
+I made several whiteboard illustrations of this project's architecture.
+
+![lab06](/wrrc/lab06wrrc.jpg)
+![lab07](/wrrc/lab07wrrc.jpg)
+![lab08](/wrrc/lab08wrrc.jpg)
 
 ## Change Log
 
 - 6 MAR 2023: initial setup of React app framework, Netifly hosting, and connection with locationIQ API.
 
+
 ## Credit and Collaborations
 
 - I have received so much help from Tammy Do in particular on this project.  I'm certain she's dumped at least 3 hours into me directly.
+
+- I continued work on labs 8-10 over the weekend on March 11th and 12th and solicited help from Steve Minor, an experienced React developer I've known for a very long time.
