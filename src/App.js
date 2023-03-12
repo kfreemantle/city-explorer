@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';  // want to use Card but we'll see how well I can do
+// import Card from 'react-bootstrap/Card';  // want to use Card but we'll see how well I can do
 import Image from 'react-bootstrap/Image';
 import Weather from './Weather';
 import './App.css';
