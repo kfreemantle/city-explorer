@@ -35,14 +35,16 @@ class App extends React.Component {
     try {
       let LocationIQToken = process.env.REACT_APP_LOCATIONIQ_API_KEY;
       let cityData = await axios.get(`https://us1.locationiq.com/v1/search?key=${LocationIQToken}&q=${this.state.cityName}&format=json`);
+      console.log(cityData);  // testing state
+      console.log(cityData.data[0].lat)
       let movieData = await axios.get(`${process.env.REACT_APP_SERVER}/movie?keyword=${this.state.cityName}`);
-      let weatherData = await axios.get(`${process.env.REACT_APP_SERVER}/weather?search=${this.state.cityName}&lat=${this.state.cityData.lat}&lon=${this.state.cityData.lon}`);
+      let weatherData = await axios.get(`${process.env.REACT_APP_SERVER}/weather?search=${this.state.cityName}&lat=${cityData.data[0].lat}&lon=${cityData.data[0].lon}`);
 
       // Axios action happens here
       this.setState({
         cityData: cityData.data[0],
-        latitude: this.state.cityData.lat,
-        longitude: this.state.cityData.lon,
+        latitude: cityData.data[0].lat,
+        longitude: cityData.data[0].lon,
         weatherData: weatherData.data,
         movieData: movieData.data,
         isMapOpen: true,
@@ -84,7 +86,7 @@ class App extends React.Component {
     return (
       <>
         <Form onSubmit={this.handleSubmit}>
-          <Form.Label for="cityName">Select City</Form.Label>
+          <Form.Label htmlFor="cityName">Select City</Form.Label>
           <Form.Control id="cityName" type="text" onChange={this.handleChange}></Form.Control>
           <Button type='submit'>Explore!</Button>
         </Form>
@@ -99,10 +101,13 @@ class App extends React.Component {
             cityName={this.state.cityName} />
           })
         } 
+        {this.state.isMapOpen
+        &&
         <Image 
         src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=12`}>
 
         </Image>
+        }
         </>
 
 
